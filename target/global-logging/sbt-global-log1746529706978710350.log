@@ -1,0 +1,41 @@
+[debug] > Exec(early(addDefaultCommands), None, None)
+[debug] > Exec(addDefaultCommands, None, None)
+[debug] > Exec(early(initialize), None, None)
+[debug] > Exec(initialize, None, None)
+[debug] > Exec(boot, None, None)
+[debug] > Exec(writeSbtVersion, None, None)
+[debug] > Exec(reload, None, None)
+[debug] > Exec(sbtStashOnFailure, None, None)
+[debug] > Exec(onFailure loadFailed, None, None)
+[debug] > Exec(loadp, None, None)
+[info] welcome to sbt 1.10.5 (Homebrew Java 11.0.25)
+[debug] Load.defaultLoad until apply took 49.552375ms
+[debug]           Load.loadUnit: plugins took 38.881083ms
+[debug]           Load.loadUnit: defsScala took 0.13375ms
+[debug] [Loading] Scanning directory /Users/akhilnair/Desktop/CS441_Fall2024_Assignment_3_Client/project
+[debug] [Loading] Found non-root projects 
+[debug] [Loading] Done in /Users/akhilnair/Desktop/CS441_Fall2024_Assignment_3_Client/project, returning: ()
+[debug] deducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.ScriptedPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.SbtPlugin),Set(Atom(sbt.ScriptedPlugin)))
+[debug] Clause(Atom(sbt.plugins.SemanticdbPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.MiniDependencyTreePlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin)))
+[debug] Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.SemanticdbPlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin)))
+[debug] Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin)))
+[debug] Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin))))
+[debug]   :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.MiniDependencyTreePlugin,sbt.plugins.JUnitXmlReportPlugin,sbt.plugins.SemanticdbPlugin)
+[debug] Plugins.deducer#function took 8.404791 ms
+[debug]               Load.resolveProject(cs441_fall2024_assignment_3_client-build) took 27.184916ms
+[debug]             Load.loadTransitive: finalizeProject(Project(id cs441_fall2024_assignment_3_client-build, base: /Users/akhilnair/Desktop/CS441_Fall2024_Assignment_3_Client/project, plugins: List(<none>))) took 53.609917ms
+[debug] [Loading] Done in /Users/akhilnair/Desktop/CS441_Fall2024_Assignment_3_Client/project, returning: (cs441_fall2024_assignment_3_client-build)
+[debug]           Load.loadUnit: loadedProjectsRaw took 63.867333ms
+[debug]           Load.loadUnit: cleanEvalClasses took 0.095666ms
+[debug]         Load.loadUnit(file:/Users/akhilnair/Desktop/CS441_Fall2024_Assignment_3_Client/project/, ...) took 105.235833ms
+[debug]       Load.apply: load took 364.688583ms
+[debug]       Load.apply: resolveProjects took 3.920291ms
+[debug]       Load.apply: finalTransforms took 39.211292ms
+[debug]       Load.apply: config.delegates took 2.934875ms
