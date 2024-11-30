@@ -40,7 +40,6 @@ class AutoConversationHandler(
     } else {
       logger.info(s"Processing turn $turnCount for session $sessionId")
 
-      // Make HTTP request to Bedrock server
       processQuery(query).flatMap { response =>
         recorder.appendToConversation(sessionId, (query, response.response))
 
