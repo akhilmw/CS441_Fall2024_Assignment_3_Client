@@ -40,12 +40,12 @@ sbt run
 Visit the Serve ReadME file
 
 ### Built With
-Scala 2.13
-Akka HTTP Client
-Ollama4j
-SBT
+1. Scala 2.13
+2. Akka HTTP Client
+3. Ollama4j
+4. SBT
 
-###Conclusion
+### Conclusion
 The client component effectively manages automated conversations between local Ollama and cloud-based Bedrock services, demonstrating practical implementation of a hybrid LLM system with robust conversation management and storage capabilities.
 
 ## Acknowledgments
