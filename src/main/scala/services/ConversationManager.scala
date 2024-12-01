@@ -8,10 +8,19 @@ import scala.concurrent.{ExecutionContext, Future}
 import org.slf4j.LoggerFactory
 import scala.util.{Try, Success, Failure}
 
+
+/** ConversationManager.scala
+ * Core service managing conversation state and generation of follow-up queries
+ * using the Ollama API. Handles conversation initialization, state updates,
+ * and history tracking.
+ */
+
+
 class ConversationManager(implicit ec: ExecutionContext) {
   private val logger = LoggerFactory.getLogger(getClass)
   private val config = ConfigFactory.load()
 
+  // Initialize Ollama API client with configured parameters
   private val ollamaAPI = {
     val api = new OllamaAPI(config.getString("ollama.host"))
     api.setRequestTimeoutSeconds(config.getInt("ollama.request-timeout-seconds"))
@@ -20,6 +29,14 @@ class ConversationManager(implicit ec: ExecutionContext) {
 
   private var conversations = Map[String, ConversationState]()
 
+
+  /** Case class representing the state of an ongoing conversation
+   * @param sessionId Unique conversation identifier
+   * @param turnCount Number of turns in conversation
+   * @param lastQuery Most recent query
+   * @param lastResponse Most recent response
+   * @param conversationHistory Complete history of conversation turns
+   */
   case class ConversationState(
                                 sessionId: String,
                                 turnCount: Int,
@@ -28,6 +45,13 @@ class ConversationManager(implicit ec: ExecutionContext) {
                                 conversationHistory: List[(String, String)]
                               )
 
+
+  /** Generate next query in conversation using Ollama API
+   * @param sessionId Active conversation identifier
+   * @param currentResponse Last response to generate from
+   * @param retries Number of remaining retry attempts
+   * @return Future containing optional next query
+   */
   def generateNextQuery(sessionId: String, currentResponse: String, retries: Int = 3): Future[Option[String]] = {
     try {
       logger.info(s"Generating next query for session $sessionId")
@@ -93,6 +117,10 @@ class ConversationManager(implicit ec: ExecutionContext) {
     }
   }
 
+  /** Initialize new conversation with given session ID and query
+   * @param sessionId Unique conversation identifier
+   * @param initialQuery Starting query for conversation
+   */
 
 
   def initializeConversation(sessionId: String, initialQuery: String): Unit = {
@@ -107,6 +135,12 @@ class ConversationManager(implicit ec: ExecutionContext) {
       ))
     }
   }
+
+  /** Generate prompt for next query based on conversation state
+   * @param state Current conversation state
+   * @param currentResponse Most recent response
+   * @return Formatted prompt string
+   */
 
   private def generatePrompt(state: ConversationState, currentResponse: String): String = {
     val historyContext = state.conversationHistory
@@ -129,10 +163,21 @@ class ConversationManager(implicit ec: ExecutionContext) {
        |Follow-up question:""".stripMargin
   }
 
+  /** Check if conversation should continue based on turn count
+   * @param state Current conversation state
+   * @return True if conversation should continue
+   */
+
   private def shouldContinueConversation(state: ConversationState): Boolean = {
     val maxTurns = config.getInt("ollama.max-turns")
     state.turnCount < maxTurns
   }
+
+  /** Update conversation state with new query and response
+   * @param sessionId Conversation identifier
+   * @param query New query
+   * @param response New response
+   */
 
   private def updateConversationState(sessionId: String, query: String, response: String): Unit = {
     synchronized {
@@ -146,6 +191,11 @@ class ConversationManager(implicit ec: ExecutionContext) {
       }
     }
   }
+
+  /** Retrieve full conversation history
+   * @param sessionId Conversation identifier
+   * @return Optional list of conversation turns
+   */
 
   def getConversationHistory(sessionId: String): Option[List[(String, String)]] = {
     conversations.get(sessionId).map(_.conversationHistory)

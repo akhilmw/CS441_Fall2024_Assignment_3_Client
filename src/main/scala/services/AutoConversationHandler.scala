@@ -13,6 +13,12 @@ import io.circe.parser._
 import io.circe.syntax._
 import com.typesafe.config.ConfigFactory
 
+/** AutoConversationHandler.scala
+ * Service orchestrating autonomous conversations by managing interaction between
+ * the conversation manager, recorder, and external Bedrock API service.
+ * Handles conversation flow, retry logic, and error handling.
+ */
+
 class AutoConversationHandler(
                                bedrockServerUrl: String,
                                conversationManager: ConversationManager,
@@ -28,6 +34,11 @@ class AutoConversationHandler(
   case class QueryRequest(query: String)
   case class QueryResponse(response: String)
 
+  /** Start new autonomous conversation
+   * @param initialQuery Starting query for conversation
+   * @return Future containing session ID of completed conversation
+   */
+
   def startAutonomousConversation(initialQuery: String): Future[String] = {
     val sessionId = java.util.UUID.randomUUID().toString
     logger.info(s"Starting autonomous conversation $sessionId with query: $initialQuery")
@@ -35,6 +46,13 @@ class AutoConversationHandler(
     conversationManager.initializeConversation(sessionId, initialQuery)
     processTurns(sessionId, initialQuery, 1)
   }
+
+  /** Process conversation turns recursively
+   * @param sessionId Active conversation identifier
+   * @param query Current query to process
+   * @param turnCount Current turn number
+   * @return Future containing session ID when complete
+   */
 
   private def processTurns(sessionId: String, query: String, turnCount: Int): Future[String] = {
     if (turnCount > MaxTurns) {
@@ -47,6 +65,7 @@ class AutoConversationHandler(
         recorder.appendToConversation(sessionId, (query, response.response))
 
         // Introduce a non-blocking delay
+        // Add delay between turns
         after(2.seconds, system.scheduler)(Future.unit).flatMap { _ =>
           conversationManager.generateNextQuery(sessionId, response.response).flatMap {
             case Some(nextQuery) =>

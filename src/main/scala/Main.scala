@@ -5,14 +5,22 @@ import scala.concurrent.duration._
 import org.slf4j.LoggerFactory
 import com.typesafe.config.ConfigFactory
 
+/** Main.scala
+ * Entry point for the autonomous conversation system.
+ * This application initializes the actor system and core services,
+ * then starts an autonomous conversation using configured parameters.
+ */
+
 object Main extends App {
   private val logger = LoggerFactory.getLogger(getClass)
   private val config = ConfigFactory.load()
 
+  // Initialize Akka actor system for concurrent operations
   implicit val system: ActorSystem = ActorSystem("ollama-system")
   implicit val executionContext: ExecutionContext = system.dispatcher
 
   try {
+    // Initialize core services
     val conversationManager = new ConversationManager()
     val recorder = new ConversationRecorder()
 
@@ -20,6 +28,7 @@ object Main extends App {
     val bedrockServerUrl = sys.env.getOrElse("BEDROCK_SERVER_URL", "http://bedrock-server:8080")
     logger.info(s"Using Bedrock server URL: $bedrockServerUrl")  // Added logging
 
+    // Initialize conversation handler with dependencies
     val autoHandler = new AutoConversationHandler(
       bedrockServerUrl = bedrockServerUrl,
       conversationManager = conversationManager,

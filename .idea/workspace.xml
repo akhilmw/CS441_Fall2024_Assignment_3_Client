@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ac8786e3-f918-4537-8e39-3648a76753c9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.conf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.conf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Main.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/services/AutoConversationHandler.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/AutoConversationHandler.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/services/ConversationManager.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/ConversationManager.scala" afterDir="false" />
@@ -143,7 +142,7 @@
       <option name="presentableId" value="Default" />
       <updated>1732935350085</updated>
       <workItem from="1732935351814" duration="19945000" />
-      <workItem from="1733013195210" duration="9273000" />
+      <workItem from="1733013195210" duration="11629000" />
     </task>
     <servers />
   </component>
