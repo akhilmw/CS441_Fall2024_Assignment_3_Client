@@ -39,7 +39,7 @@ sbt run
 ### Local Docker Deployment
 Visit the Serve ReadME file
 
-###Built With
+### Built With
 Scala 2.13
 Akka HTTP Client
 Ollama4j
