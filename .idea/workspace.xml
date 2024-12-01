@@ -6,18 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="ac8786e3-f918-4537-8e39-3648a76753c9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hs_err_pid8438.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.conf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.conf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Main.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/OllamaClient.scala" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/services/AutoConversationHandler.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/AutoConversationHandler.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/Main$.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/Main$.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/OllamaClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.13/zinc/inc_compile_2.13.zip" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/zinc/inc_compile_2.13.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/streams/compile/_global/_global/compileOutputs/previous" beforeDir="false" afterPath="$PROJECT_DIR$/target/streams/compile/_global/_global/compileOutputs/previous" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/streams/compile/compileIncremental/_global/streams/out" beforeDir="false" afterPath="$PROJECT_DIR$/target/streams/compile/compileIncremental/_global/streams/out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/streams/compile/incOptions/_global/streams/out" beforeDir="false" afterPath="$PROJECT_DIR$/target/streams/compile/incOptions/_global/streams/out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/services/ConversationManager.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/ConversationManager.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/services/ConversationRecorder.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/services/ConversationRecorder.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,9 +28,9 @@
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2pYFxS2LHosittOwdsnnv3At77t" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -48,6 +41,10 @@
     "Application.Main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "ScalaTest.AutoConversationHandlerSpec.executor": "Run",
+    "ScalaTest.ConversationManagerSpec.ConversationManager should generate next query based on conversation history.executor": "Run",
+    "ScalaTest.ConversationManagerSpec.ConversationManager should initialize conversation with correct state.executor": "Run",
+    "ScalaTest.ConversationRecorderSpec.executor": "Run",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
@@ -58,7 +55,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="ScalaTest.AutoConversationHandlerSpec">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="CS441_Fall2024_Assignment_3_Client" />
@@ -66,8 +63,66 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="AutoConversationHandlerSpec" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
+      <module name="CS441_Fall2024_Assignment_3_Client" />
+      <option name="allowRunningInParallel" value="false" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <option name="testKind" value="Class" />
+      <option name="testClassPath" value="services.AutoConversationHandlerSpec" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ConversationManagerSpec.ConversationManager should generate next query based on conversation history" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
+      <module name="CS441_Fall2024_Assignment_3_Client" />
+      <option name="allowRunningInParallel" value="false" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <option name="testKind" value="Test name" />
+      <option name="testClassPath" value="services.ConversationManagerSpec" />
+      <option name="testName" value="ConversationManager should generate next query based on conversation history" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ConversationManagerSpec.ConversationManager should initialize conversation with correct state" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
+      <module name="CS441_Fall2024_Assignment_3_Client" />
+      <option name="allowRunningInParallel" value="false" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <option name="testKind" value="Test name" />
+      <option name="testClassPath" value="services.ConversationManagerSpec" />
+      <option name="testName" value="ConversationManager should initialize conversation with correct state" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ConversationRecorderSpec" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
+      <module name="CS441_Fall2024_Assignment_3_Client" />
+      <option name="allowRunningInParallel" value="false" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <option name="testKind" value="Class" />
+      <option name="testClassPath" value="services.ConversationRecorderSpec" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="ScalaTest.AutoConversationHandlerSpec" />
+        <item itemvalue="ScalaTest.ConversationRecorderSpec" />
+        <item itemvalue="ScalaTest.ConversationManagerSpec.ConversationManager should generate next query based on conversation history" />
+        <item itemvalue="ScalaTest.ConversationManagerSpec.ConversationManager should initialize conversation with correct state" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -87,7 +142,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1732935350085</updated>
-      <workItem from="1732935351814" duration="7488000" />
+      <workItem from="1732935351814" duration="19945000" />
+      <workItem from="1733013195210" duration="9273000" />
     </task>
     <servers />
   </component>

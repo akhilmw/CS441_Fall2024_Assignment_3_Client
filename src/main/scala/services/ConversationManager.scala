@@ -28,7 +28,7 @@ class ConversationManager(implicit ec: ExecutionContext) {
                                 conversationHistory: List[(String, String)]
                               )
 
-  def generateNextQuery(sessionId: String, currentResponse: String): Future[Option[String]] = {
+  def generateNextQuery(sessionId: String, currentResponse: String, retries: Int = 3): Future[Option[String]] = {
     try {
       logger.info(s"Generating next query for session $sessionId")
 
@@ -76,10 +76,14 @@ class ConversationManager(implicit ec: ExecutionContext) {
         }
 
         nextQuery
-      }.recover {
+      }.recoverWith {
+        case ex: Exception if retries > 0 =>
+          logger.warn(s"Failed to connect to Ollama, retrying... ($retries attempts left)")
+          Thread.sleep(2000) // Wait 2 seconds before retry
+          generateNextQuery(sessionId, currentResponse, retries - 1)
         case ex: Exception =>
           logger.error(s"Error calling Ollama API: ${ex.getMessage}", ex)
-          None
+          Future.successful(None)
       }
 
     } catch {

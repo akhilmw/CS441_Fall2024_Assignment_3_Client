@@ -11,6 +11,7 @@ import akka.pattern.after
 import io.circe.generic.auto._
 import io.circe.parser._
 import io.circe.syntax._
+import com.typesafe.config.ConfigFactory
 
 class AutoConversationHandler(
                                bedrockServerUrl: String,
@@ -19,7 +20,9 @@ class AutoConversationHandler(
                              )(implicit ec: ExecutionContext, system: ActorSystem) {
 
   private val logger = LoggerFactory.getLogger(getClass)
-  private val MaxTurns = 10
+  private val config = ConfigFactory.load()
+
+  private val MaxTurns = config.getInt("ollama.max-turns")
 
   // Models for JSON communication
   case class QueryRequest(query: String)
@@ -62,31 +65,43 @@ class AutoConversationHandler(
   }
 
   private def processQuery(query: String): Future[QueryResponse] = {
-    val request = HttpRequest(
-      method = HttpMethods.POST,
-      uri = s"$bedrockServerUrl/query",
-      entity = HttpEntity(
-        ContentTypes.`application/json`,
-        QueryRequest(query).asJson.noSpaces
-      )
-    )
+    def attemptQuery(retries: Int): Future[QueryResponse] = {
+      logger.info(s"Attempting to connect to server URL: ${bedrockServerUrl}/query (attempt ${5 - retries + 1})")
 
-    Http().singleRequest(request).flatMap { response =>
-      response.status match {
-        case StatusCodes.OK =>
-          Unmarshal(response.entity).to[String].map { jsonStr =>
-            decode[QueryResponse](jsonStr) match {
-              case Right(queryResponse) => queryResponse
-              case Left(error) =>
-                throw new RuntimeException(s"Failed to decode response: ${error.getMessage}")
+      val request = HttpRequest(
+        method = HttpMethods.POST,
+        uri = s"$bedrockServerUrl/query",
+        entity = HttpEntity(
+          ContentTypes.`application/json`,
+          QueryRequest(query).asJson.noSpaces
+        )
+      )
+
+      Http().singleRequest(request).flatMap { response =>
+        response.status match {
+          case StatusCodes.OK =>
+            Unmarshal(response.entity).to[String].map { jsonStr =>
+              decode[QueryResponse](jsonStr) match {
+                case Right(queryResponse) => queryResponse
+                case Left(error) =>
+                  throw new RuntimeException(s"Failed to decode response: ${error.getMessage}")
+              }
             }
-          }
-        case _ =>
-          Unmarshal(response.entity).to[String].flatMap { errorBody =>
-            Future.failed(new RuntimeException(s"Request failed with status ${response.status}: $errorBody"))
-          }
+          case _ =>
+            Unmarshal(response.entity).to[String].flatMap { errorBody =>
+              Future.failed(new RuntimeException(s"Request failed with status ${response.status}: $errorBody"))
+            }
+        }
+      }.recoverWith {
+        case ex if retries > 0 =>
+          logger.warn(s"Connection failed, retrying in 2 seconds... (${retries - 1} retries left)")
+          after(2.seconds, system.scheduler)(attemptQuery(retries - 1))
+        case ex =>
+          Future.failed(ex)
       }
     }
+
+    attemptQuery(5) // Start with 5 retries
   }
 
   private def saveAndFinish(sessionId: String): Future[String] = Future {

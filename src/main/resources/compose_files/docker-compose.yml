@@ -1,0 +1,12 @@
+# to be used only if server is hosted on ec2
+
+services:
+  ollama-client:
+    image: ollama-client:latest
+    environment:
+      - BEDROCK_SERVER_URL=http://ec2-54-81-158-158.compute-1.amazonaws.com:8080  # Your EC2 public IP
+      - OLLAMA_HOST=http://host.docker.internal:11434  # Local Ollama
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./conversations:/app/conversations  # To save conversations locally

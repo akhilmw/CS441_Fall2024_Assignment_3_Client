@@ -16,7 +16,9 @@ object Main extends App {
     val conversationManager = new ConversationManager()
     val recorder = new ConversationRecorder()
 
-    val bedrockServerUrl = config.getString("bedrock-server.url")
+    // Get server URL from environment variable instead of config
+    val bedrockServerUrl = sys.env.getOrElse("BEDROCK_SERVER_URL", "http://bedrock-server:8080")
+    logger.info(s"Using Bedrock server URL: $bedrockServerUrl")  // Added logging
 
     val autoHandler = new AutoConversationHandler(
       bedrockServerUrl = bedrockServerUrl,

@@ -9,7 +9,7 @@ import scala.collection.concurrent.TrieMap
 
 class ConversationRecorder {
   private val logger = LoggerFactory.getLogger(getClass)
-  private val conversationsDir = "conversations"
+  private val conversationsDir = sys.env.getOrElse("CONVERSATIONS_DIR", "/app/conversations")
   private val activeFiles = TrieMap[String, (Path, Int)]() // Path and turn count
 
   private def initializeFile(sessionId: String): (Path, Int) = {
